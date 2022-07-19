@@ -1,0 +1,6 @@
+invalid_hats_command_message: "[DRHats] Invalid hats command! Use /drhats help for help!"
+no_permission_message: "[DRHats] You don't have permission to run this command!"
+player_command_message: "[DRHats] You must be a player to run this command!"
+wearing_helmet_message: "[DRHats] You must not wear any helmets in order to wear this hat!"
+error_page_index_out_of_bounds: "[DRHats] The requested help page doesn't exist!"
+successfully_reloaded_configurations_message: "[DRHats] Successfully reloaded plugin's configurations!"

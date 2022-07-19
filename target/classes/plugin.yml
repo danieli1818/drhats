@@ -1,0 +1,14 @@
+name: DRHats
+version: ${project.version}
+main: drhats.DRHats
+authors: [DanielRottner]
+description: DRHats plugin for hats in Minecraft.
+
+commands:
+    drhats:
+        description: drhats commands.
+        aliases: 
+        - hats
+        permission: drhats
+        permission-message: You do not have permission to run this command!
+        usage: /<command>
