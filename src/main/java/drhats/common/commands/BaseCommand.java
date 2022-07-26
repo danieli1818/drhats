@@ -16,6 +16,8 @@ import drhats.common.plugin.MessagesPlugin;
 
 public abstract class BaseCommand implements AdvancedCommand {
 
+	private static final String NULL_SUB_COMMAND_ID = "null_sub_command_id";
+
 	private MessagesPlugin plugin;
 
 	private Map<String, AdvancedCommand> commands;
@@ -45,7 +47,7 @@ public abstract class BaseCommand implements AdvancedCommand {
 
 	public BaseCommand addSubCommand(String id, BaseCommand command) {
 		if (id == null) {
-			Bukkit.getLogger().log(Level.WARNING, "null_sub_command_id");
+			Bukkit.getLogger().log(Level.WARNING, NULL_SUB_COMMAND_ID);
 			return this;
 		}
 		if (command == null) {

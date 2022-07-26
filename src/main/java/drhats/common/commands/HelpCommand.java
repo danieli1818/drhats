@@ -12,6 +12,7 @@ import drhats.common.plugin.MessagesPlugin;
 
 public class HelpCommand implements AdvancedCommand {
 
+	private static final String ERROR_PAGE_INDEX_OUT_OF_BOUNDS = "error_page_index_out_of_bounds";
 	private MessagesPlugin plugin;
 	private AdvancedCommand command;
 	private int numOfSubCommandsPerHelpPage;
@@ -32,8 +33,8 @@ public class HelpCommand implements AdvancedCommand {
 	public void sendHelp(CommandSender sender, int page) {
 		page -= 1;
 		if (page < 0) {
-			plugin.getMessagesSender().sendTranslatedMessage("error_page_index_out_of_bounds", sender);
-			plugin.getPluginLogger().logTranslated(Level.INFO, "error_page_index_out_of_bounds");
+			plugin.getMessagesSender().sendTranslatedMessage(ERROR_PAGE_INDEX_OUT_OF_BOUNDS, sender);
+			plugin.getPluginLogger().logTranslated(Level.INFO, ERROR_PAGE_INDEX_OUT_OF_BOUNDS);
 			return;
 		}
 		List<String> subCommands = getOrderedSubCommandsIDs().subList(getNumOfSubCommandsPerHelpPage() * page,

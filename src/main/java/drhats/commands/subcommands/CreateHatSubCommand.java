@@ -8,6 +8,8 @@ import org.bukkit.inventory.ItemStack;
 import drhats.common.commands.AdvancedCommand;
 import drhats.common.commands.SubCommand;
 import drhats.common.plugin.MessagesPlugin;
+import drhats.management.HatsManager;
+import drhats.messages.MessagesIDs;
 
 public class CreateHatSubCommand extends SubCommand {
 
@@ -24,13 +26,18 @@ public class CreateHatSubCommand extends SubCommand {
 				getPlugin().getMessagesSender().sendTranslatedMessage(getPlayerCommandMessageID(), sender);
 			}
 			Player player = (Player)sender;
-			ItemStack itemStack = player.getInventory().getItemInMainHand();
-			if (itemStack == null) {
-				// TODO Send error message that you need to hold an item when you run this command
+			if (HatsManager.getInstance().getHat(hatID) != null) {
+				getPlugin().getMessagesSender().sendTranslatedMessage(MessagesIDs.HAT_ID_ALREADY_EXISTS_MESSAGE_ID, sender);
 				return false;
 			}
-			getPlugin().getFileConfigurationsUtils().setObject("hats.yml", hatID, itemStack);
-			getPlugin().getFileConfigurationsUtils().save("hats.yml");
+			ItemStack itemStack = player.getInventory().getItemInMainHand();
+			if (itemStack == null) {
+				getPlugin().getMessagesSender().sendTranslatedMessage(MessagesIDs.HOLDING_HAT_MESSAGE_ID, sender);
+				return false;
+			}
+			HatsManager.getInstance().createHat(hatID, itemStack);
+			HatsManager.getInstance().saveHats();
+			getPlugin().getMessagesSender().sendTranslatedMessage(MessagesIDs.SUCCESS_CREATING_HAT_MESSAGE_ID, sender);
 		}
 		return true;
 	}

@@ -1,1 +1,9 @@
+diamond_hat:
+  ==: org.bukkit.inventory.ItemStack
+  type: DIAMOND
+  amount: 64
+gold_hat:
+  ==: org.bukkit.inventory.ItemStack
+  type: GOLD_INGOT
+  amount: 64
 

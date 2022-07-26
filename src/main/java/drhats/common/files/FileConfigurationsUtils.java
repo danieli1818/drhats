@@ -8,6 +8,9 @@ import java.util.function.Function;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 public class FileConfigurationsUtils {
 
 	private FileConfigurationsLoader loader;
@@ -41,7 +44,6 @@ public class FileConfigurationsUtils {
 	public String getString(String filePath, String valuePath) {
 		FileConfiguration fileConfiguration = getFileConfiguration(filePath);
 		if (fileConfiguration == null) {
-			System.out.println("File Configuration is null!");
 			return null;
 		}
 		return fileConfiguration.getString(valuePath);
@@ -79,6 +81,15 @@ public class FileConfigurationsUtils {
 		return fileConfiguration.getItemStack(valuePath);
 	}
 	
+	public boolean removeObject(String filePath, String valuePath) {
+		FileConfiguration fileConfiguration = getFileConfiguration(filePath);
+		if (fileConfiguration == null) {
+			return false;
+		}
+		fileConfiguration.set(filePath, null);
+		return true;
+	}
+	
 	public <T> Map<String, T> parseAllKeys(String filePath, Function<String, T> parser) {
 		FileConfiguration fileConfiguration = getFileConfiguration(filePath);
 		if (fileConfiguration == null) {
@@ -91,19 +102,30 @@ public class FileConfigurationsUtils {
 		return keysValuesMap;
 	}
 	
-	public void setObject(String filePath, String valuePath, Object value) {
+	public <T> BiMap<String, T> parseAllKeysBi(String filePath, Function<String, T> parser) {
 		FileConfiguration fileConfiguration = getFileConfiguration(filePath);
 		if (fileConfiguration == null) {
-			System.out.println("File Configuration is null!");
-		} else {
-			fileConfiguration.set(valuePath, value);
-			System.out.println("Setting " + valuePath + " with value: " + value + " in file: " + filePath);
+			return null;
 		}
+		BiMap<String, T> keysValuesMap = HashBiMap.create();
+		for (String key : fileConfiguration.getKeys(false)) {
+			keysValuesMap.put(key, parser.apply(key));
+		}
+		return keysValuesMap;
+	}
+	
+	public void setObject(String filePath, String valuePath, Object value) {
+		FileConfiguration fileConfiguration = getFileConfiguration(filePath);
+		fileConfiguration.set(valuePath, value);
 	}
 	
 	public boolean save(String filePath) {
-		System.out.println("Saving file configuration of file: " + filePath);
 		return loader.saveFileConfiguration(filePath);
+	}
+	
+	public boolean hasKey(String filePath, String key) {
+		FileConfiguration fileConfiguration = loader.getFileConfiguration(filePath);
+		return fileConfiguration.getKeys(false).contains(key);
 	}
 	
 	private FileConfiguration getFileConfiguration(String filePath) {

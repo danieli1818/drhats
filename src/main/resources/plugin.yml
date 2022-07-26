@@ -9,6 +9,6 @@ commands:
         description: drhats commands.
         aliases: 
         - hats
-        permission: drhats
+        permission: drhats.menu
         permission-message: You do not have permission to run this command!
         usage: /<command>

@@ -16,7 +16,7 @@ import drhats.utils.reloader.ReloaderManager;
 
 public class DRHats extends JavaPlugin implements MessagesPlugin {
 	
-	public static final String ID = "drhats"; 
+	public static final String ID = "drhats";
 	
 	private PluginLogger logger;
 	private FileConfigurationsUtils fileConfigurationsUtils;
@@ -37,7 +37,7 @@ public class DRHats extends JavaPlugin implements MessagesPlugin {
 		messagesSender = new MessagesSender(this, messagesStorage);
 		
 		reloaderManager.registerReloadable(logger);
-		reloaderManager.registerReloadable(HatsManager.getInstance(this));
+		reloaderManager.registerReloadable(HatsManager.getInstance(this, "hats.yml"));
 		reloaderManager.registerReloadable(messagesStorage);
 		
 		reloaderManager.reloadAllSet();
@@ -67,6 +67,11 @@ public class DRHats extends JavaPlugin implements MessagesPlugin {
 	@Override
 	public PluginLogger getPluginLogger() {
 		return logger;
+	}
+
+	@Override
+	public String getID() {
+		return ID;
 	}
 	
 }

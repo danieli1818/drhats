@@ -2,20 +2,23 @@ package drhats.common.files;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+import drhats.common.plugin.LoggerPlugin;
+import drhats.utils.log.PluginLogger;
+
 public class FileConfigurationsLoader {
 
-	private Plugin plugin;
+	private LoggerPlugin plugin;
 	private BiMap<String, FileConfiguration> fileConfigurations;
 	
-	public FileConfigurationsLoader(Plugin plugin) {
+	public FileConfigurationsLoader(LoggerPlugin plugin) {
 		this.plugin = plugin;
 		fileConfigurations = HashBiMap.create();
 	}
@@ -58,30 +61,28 @@ public class FileConfigurationsLoader {
 	public boolean loadFileConfiguration(String filePath, boolean createPath, boolean loadResource, boolean shouldReplaceFile) {
 		File file = new File(getAbsolutePath(filePath));
 		if (!file.exists() && createPath) {
-			System.out.println("Making dirs in load file configuration!");
 			if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
-				System.out.println("Error Making Dirs!");
-				// TODO log error message couldn't create file path
+				getPluginLogger().log(Level.SEVERE, "Couldn't create file path: " + filePath);
 				return false;
 			}
 			if (loadResource) {
 				try {
 					plugin.saveResource(filePath, shouldReplaceFile);
 				} catch (IllegalArgumentException e) {
-					// TODO log error message couldn't load resource file with exception
+					getPluginLogger().log(Level.SEVERE, "Couldn't save file at: " + filePath + " with its resource", e);
 					return false;
 				}
 			}
 		}
 		if (!file.exists() || !file.isFile()) {
-			// TODO log error message file doesn't exist
+			getPluginLogger().log(Level.SEVERE, "File at: " + filePath + " doesn't exist!");
 			return false;
 		}
 		FileConfiguration fileConfiguration = new YamlConfiguration();
 		try {
 			fileConfiguration.load(file);
 		} catch (Exception e) {
-			// TODO log error message couldn't load file configuration with the exception
+			getPluginLogger().log(Level.SEVERE, "Couldn't load file configuration of file: " + filePath, e);
 			return false;
 		}
 		fileConfigurations.put(filePath, fileConfiguration);
@@ -96,7 +97,7 @@ public class FileConfigurationsLoader {
 		try {
 			config.save(new File(getAbsolutePath(filePath)));
 		} catch (IOException e) {
-			// TODO log message couldn't save file configuration with the exception
+			getPluginLogger().log(Level.SEVERE, "Couldn't save file configuration at: " + filePath, e);
 			return false;
 		}
 		return true;
@@ -104,6 +105,14 @@ public class FileConfigurationsLoader {
 	
 	private String getAbsolutePath(String relativePath) {
 		return plugin.getDataFolder().getAbsolutePath() + File.separator + relativePath;
+	}
+	
+	private LoggerPlugin getPlugin() {
+		return plugin;
+	}
+	
+	private PluginLogger getPluginLogger() {
+		return getPlugin().getPluginLogger();
 	}
 	
 }
