@@ -1,10 +1,13 @@
 drhats\utils\messages\MessagesGroup.class
+drhats\common\plugin\permissions\BasePermissionsPlugin.class
 drhats\common\plugin\FilesPlugin.class
+drhats\common\plugin\permissions\functions\LuckPermsFunctions.class
 drhats\management\HatsManager$1.class
 drhats\utils\reloader\ReloadFileData.class
 drhats\commands\subcommands\CreateHatSubCommand.class
 drhats\common\commands\SubCommand.class
 drhats\utils\log\PluginLogger.class
+drhats\commands\subcommands\GiveHatSubCommand.class
 drhats\common\plugin\AdvancedPlugin.class
 drhats\DRHats.class
 drhats\gui\HatsGUI.class
@@ -12,6 +15,8 @@ drhats\utils\parsers\Parser.class
 drhats\common\commands\HelpCommand.class
 drhats\common\files\FileConfigurationsUtils.class
 drhats\utils\reloader\ReloaderManager.class
+drhats\common\plugin\exceptions\PluginMissingException.class
+drhats\common\plugin\permissions\functions\PermissionsFunctions.class
 drhats\common\commands\ConsumerRootCommand.class
 drhats\common\commands\ReloadCommand.class
 drhats\utils\parsers\ItemStackParser.class
@@ -23,6 +28,7 @@ drhats\common\commands\AdvancedCommand.class
 drhats\exceptions\parse\ParseException.class
 drhats\common\files\FileConfigurationsLoader.class
 drhats\utils\messages\MessagesStorage.class
+drhats\common\plugin\permissions\PermissionsPlugin.class
 drhats\common\commands\BaseCommand.class
 drhats\common\commands\ConsumerSubCommand.class
 drhats\common\messages\BaseCommandsMessagesIDs.class

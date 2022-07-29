@@ -8,3 +8,6 @@ holding_hat_message: "[DRHats] You must be holding the hat while running this co
 success_creating_hat_message: "[DRHats] Hat has been created successfully!"
 hat_not_found_message: "[DRHats] Couldn't find the hat specified!"
 hat_id_already_exists_message: "[DRHats] A hat with this id already exists!"
+player_already_has_hat_message: "[DRHats] The specified player already has this hat!"
+player_not_found_message: "[DRHats] Couldn't find this player!"
+success_giving_hat_to_player_message: "[DRHats] Successfully given hat to player!"

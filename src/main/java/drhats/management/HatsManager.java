@@ -26,7 +26,7 @@ import drhats.utils.reloader.Reloadable;
 
 public class HatsManager implements Reloadable {
 
-	private MessagesPlugin plugin;
+	private DRHats plugin;
 
 	private BiMap<String, ItemStack> hats;
 
@@ -36,7 +36,7 @@ public class HatsManager implements Reloadable {
 
 	private static HatsManager instance;
 
-	private HatsManager(MessagesPlugin plugin, String hatsFilePath) {
+	private HatsManager(DRHats plugin, String hatsFilePath) {
 		this.plugin = plugin;
 		this.hats = HashBiMap.create();
 		this.hatsFilePath = hatsFilePath;
@@ -55,7 +55,7 @@ public class HatsManager implements Reloadable {
 		return instance;
 	}
 
-	public static HatsManager getInstance(MessagesPlugin plugin, String hatsFilePath) {
+	public static HatsManager getInstance(DRHats plugin, String hatsFilePath) {
 		if (instance == null) {
 			instance = new HatsManager(plugin, hatsFilePath);
 		}
@@ -97,15 +97,47 @@ public class HatsManager implements Reloadable {
 		return hats.get(hatID);
 	}
 	
+	public boolean hasHat(Player player, String hatID) {
+		String permission = getHatPermission(hatID);
+		if (permission == null) {
+			return true;
+		}
+		return player.hasPermission(permission);
+	}
+	
+	public boolean giveHat(Player player, String hatID) {
+		String permission = getHatPermission(hatID);
+		if (permission == null || player.hasPermission(permission)) {
+			return false;
+		}
+		plugin.givePermission(player, permission);
+		return true;
+	}
+	
+	public String getHatPermission(String hatID) {
+		if (!hatExists(hatID)) {
+			return null;
+		}
+		return "drhats.hat." + hatID;
+	}
+	
+	public boolean hatExists(String hatID) {
+		return hats.containsKey(hatID);
+	}
+	
 	public void saveHats() {
 		plugin.getFileConfigurationsUtils().save(hatsFilePath);
 	}
 	
-	public boolean setHatForPlayer(Player player, String id) {
+	public boolean setHatForPlayer(Player player, String hatID) {
+		if (!hasHat(player, hatID)) {
+			getPlugin().getMessagesSender().sendTranslatedMessage(MessagesIDs.NO_PERMISSION_MESSAGE_ID, player);
+			return false;
+		}
 		ItemStack helmet = player.getInventory().getHelmet();
 		if (helmet == null || (CustomItemsProperties.isDRCustomItem(helmet)
 				&& DRHats.ID.equals(CustomItemsProperties.getDRCustomItemPlugin(helmet)))) {
-			ItemStack hat = getHat(id);
+			ItemStack hat = getHat(hatID);
 			player.getInventory().setHelmet(new CustomItemsBuilder(hat).setUndroppable(true).setUnmoveable(true)
 					.createWithoutSaving(DRHats.ID));
 			return true;

@@ -2,19 +2,19 @@ package drhats;
 
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import drhats.commands.HatsCommands;
 import drhats.common.files.FileConfigurationsLoader;
 import drhats.common.files.FileConfigurationsUtils;
 import drhats.common.plugin.MessagesPlugin;
+import drhats.common.plugin.permissions.BasePermissionsPlugin;
 import drhats.management.HatsManager;
 import drhats.utils.log.PluginLogger;
 import drhats.utils.messages.MessagesSender;
 import drhats.utils.messages.MessagesStorage;
 import drhats.utils.reloader.ReloaderManager;
 
-public class DRHats extends JavaPlugin implements MessagesPlugin {
+public class DRHats extends BasePermissionsPlugin implements MessagesPlugin {
 	
 	public static final String ID = "drhats";
 	

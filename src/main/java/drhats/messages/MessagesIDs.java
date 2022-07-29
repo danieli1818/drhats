@@ -11,5 +11,8 @@ public class MessagesIDs extends BaseCommandsMessagesIDs {
 	public static final String HAT_NOT_FOUND_MESSAGE_ID = "hat_not_found_message";
 	public static final String INVALID_HATS_COMMAND_MESSAGE_ID = "invalid_hats_command_message";
 	public static final String WEARING_HELMET_MESSAGE_ID = "wearing_helmet_message";
+	public static final String PLAYER_ALREADY_HAS_HAT_MESSAGE_ID = "player_already_has_hat_message";
+	public static final String PLAYER_NOT_FOUND_MESSAGE_ID = "player_not_found_message";
+	public static final String SUCCESS_GIVING_HAT_TO_PLAYER_MESSAGE_ID = "success_giving_hat_to_player_message";
 	
 }

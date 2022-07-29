@@ -3,12 +3,27 @@ version: ${project.version}
 main: drhats.DRHats
 authors: [DanielRottner]
 description: DRHats plugin for hats in Minecraft.
+depend: [DRGuis, DRCustomItems, LuckPerms]
 
 commands:
     drhats:
         description: drhats commands.
         aliases: 
         - hats
-        permission: drhats.menu
+        permission: drhats
         permission-message: You do not have permission to run this command!
         usage: /<command>
+
+permissions:
+      drhats:
+        description: use the drhats plugin commands.
+      drhats.menu:
+        description: open the drhats gui.
+      drhats.create:
+        description: create a drhat.
+      drhats.delete:
+        description: delete a drhat.
+      drhats.give:
+        description: give a drhat to a player.
+      
+        

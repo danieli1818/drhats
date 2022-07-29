@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import drhats.commands.subcommands.CreateHatSubCommand;
 import drhats.commands.subcommands.DeleteHatSubCommand;
+import drhats.commands.subcommands.GiveHatSubCommand;
 import drhats.common.commands.ReloadCommand;
 import drhats.common.commands.RootCommand;
 import drhats.common.plugin.MessagesPlugin;
@@ -24,6 +25,7 @@ public class HatsCommands extends RootCommand implements CommandExecutor {
 		addSubCommand("reload", new ReloadCommand(plugin, this));
 		addSubCommand("create", new CreateHatSubCommand(plugin, this, "Creates a new hat", "drhats.create"));
 		addSubCommand("delete", new DeleteHatSubCommand(plugin, this, "Delete a hat", "drhats.delete"));
+		addSubCommand("give", new GiveHatSubCommand(plugin, this, "Give a hat to player", "drhats.give"));
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class HatsGUI extends ArrayGUIsList<PermissionIcon> {
 	}
 	
 	private void addHat(String hatID, ItemStack hat) {
-		addIcon((PermissionIcon) new PermissionIcon(hat, "drhats.hat." + hatID)
+		addIcon((PermissionIcon) new PermissionIcon(hat, HatsManager.getInstance().getHatPermission(hatID))
 				.addClickAction((Player player) -> HatsManager.getInstance().setHatForPlayer(player, hatID)));
 	}
 
